@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+<title>Home title</title>
+
+{% block base_head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+{% endblock base_head %}
+
+{% block content %}
+
+	<div class="text-center">
+  		<h1>{{ title }} </h1>
+
+	   	 <h1>Hello world, we're working,</h1>
+
+	</div>
+
+
+    	<div class="row">
+    		<div class="col">
+
+
+    			<img src="{% static 'img/beach.jpg' %}" class="img-fluid">
+				<p>{{ content }}</p>
+    		</div>
+    	</div>
+	    	{% if request.user.is_authenticated %}
+    	<div class="row">
+	    		<div class="col">
+	    			<h6>Premium</h6>
+	    			{{ premium_content }}
+	    		</div>
+    	</div>
+
+		    	{% endif %}
+
+
+
+{% endblock content %}

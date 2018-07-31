@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h3>Product detail</h3>
+
+{{ object.title }} <br>
+{{ object.description }} <br>
+
+
+<img src="{{ object.image.url }}" class="im-fluid">
+
+
+{{ context }}
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	
+	<div class="row mb-3">
+
+		{% if request.GET.q %}
+
+		<div class="col-12 mb-3 ">
+			Resultat for <b> 	{{ query }}
+			</b>
+			<hr/>
+		</div>
+
+		{% else %}
+			<div class="col-12 col-md-8 mx-auto py-5">
+        		{% include "search/snippets/search_form.html" %}
+
+			</div>
+			<div class="col-12">
+				<hr>
+			</div>
+
+		{% endif %}
+	</div>
+	<div class="row">
+		
+{% for object in object_list %}
+		<div class="col">
+			{{ forloop.counter }}
+			{% include "products/snippets/card.html" with instance=object %}
+
+			{% if forloop.counter|divisibleby:3 %}
+
+		</div>
+		</div>
+
+			<div class="row"><div class="col-12"><hr/></div>
+
+		
+		{% comment %}
+		{% elif forloop.counter|divisibleby:2 %}
+
+			<div class="row"><div class="col-12"><hr/></div>
+
+		{% endcomment %}
+
+
+	{% else %}
+
+		</div>
+	{% endif %}
+
+
+	<!-- {% cycle '<h1>Hello there</h1>' '' %} -->
+
+
+
+	{% endfor %}
+	</div>
+
+
+
+
+
+{% endblock content %}

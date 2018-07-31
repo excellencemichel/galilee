@@ -1,0 +1,86 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "title": "T-Shirt",
+        "slug": "t-shirt",
+        "description": "1er t-shirt \u00e0 bon prix",
+        "price": "39.999",
+        "image": "products/1093693203/1093693203.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-07-05T03:07:20.123Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "title": "Shirt",
+        "slug": "shirt",
+        "description": "Shirt bon march\u00e9",
+        "price": "39.999",
+        "image": "products/5467707048/5467707048.png",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-07-05T03:08:20.345Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "title": "Trico",
+        "slug": "trico",
+        "description": "Un trico",
+        "price": "39.999",
+        "image": "products/1491967033/1491967033.png",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-07-05T03:09:23.885Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "title": "Pull",
+        "slug": "pull",
+        "description": "Des pull pour l'hiver",
+        "price": "39.999",
+        "image": "products/10972516388/10972516388.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-07-07T21:30:40.272Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+        "title": "Chemise",
+        "slug": "chemise",
+        "description": "Pour l\u2019\u00e9l\u00e9gance",
+        "price": "39.999",
+        "image": "products/6347009335/6347009335.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-07-07T21:31:36.996Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+        "title": "Costume",
+        "slug": "costume",
+        "description": "Nos peaux neuves",
+        "price": "39.999",
+        "image": "products/9573776641/9573776641.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2018-07-07T21:32:09.480Z"
+    }
+}
+]

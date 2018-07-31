@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div class="row">
+	<div class="col-12">
+		<h1>Account</h1>
+	</div>
+
+
+	<div class="col-12 col-md-3 col-lg-3 col-sm-4 my-3">
+		<div class="card">
+		  <div class="card-body">
+		    <h4 class="card-title">Support</h4>
+		    <div class="list-group">
+		    	<a class="list-group-item" href="{% url 'about' %}">About </a>
+
+		    	<a class="list-group-item" href="{% url 'contact' %}">Contact </a>
+
+		 	</div>
+		  </div>
+		</div>
+	</div>
+
+
+	<div class="col-12 col-md-3 col-lg-3 col-sm-4 my-3">
+		<div class="card">
+		  <div class="card-body">
+		    <h4 class="card-title">Billing</h4>
+
+		    <div class="list-group">
+		    	<a class="list-group-item" href="{% url 'orders:list' %}">Orders </a>
+		    	<a class="list-group-item" href="{% url 'billing:billing_payment_method' %}">Payment method </a>
+		    	<a class="list-group-item" href="{% url 'about' %}">Addresses </a>
+
+
+		 	</div>
+
+
+		  </div>
+		</div>
+	</div>
+
+
+	<div class="col-12 col-md-3 col-lg-3 col-sm-4 my-3">
+		<div class="card">
+		  <div class="card-body">
+		    <h4 class="card-title">Accout Details</h4>
+
+		    <div class="list-group">
+		    	<a class="list-group-item" href="{% url 'accounts:user_update' %}">Update Details</a>
+		
+		    	<a class="list-group-item" href="{% url 'passwords:password_change' %}">Change Password</a>
+
+		 	</div>
+
+
+		  </div>
+		</div>
+	</div>
+
+
+
+	<div class="col-12 col-md-3 col-lg-3 col-sm-4 my-3">
+		<div class="card">
+		  <div class="card-body">
+		    <h4 class="card-title">Preference</h4>
+
+		    <div class="list-group">
+		    	<a class="list-group-item" href="{% url 'marketing:marketing_pref' %}">Email marketing preference</a>
+
+		 	</div>
+
+
+		  </div>
+		</div>
+	</div>
+
+
+
+
+	<div class="col-12 col-md-3 col-lg-3 col-sm-4 my-3">
+		<div class="card">
+		  <div class="card-body">
+		    <h4 class="card-title">History</h4>
+
+		    <div class="list-group">
+		    	<a class="list-group-item" href="{% url 'products:user_product_history' %}">Products Viewed</a>
+		 	</div>
+
+
+		  </div>
+		</div>
+	</div>
+
+
+
+
+
+</div>
+
+
+
+{% endblock content %}

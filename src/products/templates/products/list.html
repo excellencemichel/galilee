@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	
+	<div class="row">
+		<h1>Une titre</h1>
+		
+{% for object in object_list %}
+		<div class="col">
+			{{ forloop.counter }}
+			{% include "products/snippets/card.html" with instance=object %}
+
+			{% if forloop.counter|divisibleby:3 %}
+
+		</div>
+		</div>
+
+			<div class="row"><div class="col-12"><hr/></div>
+
+		
+		{% comment %}
+		{% elif forloop.counter|divisibleby:2 %}
+
+			<div class="row"><div class="col-12"><hr/></div>
+
+		{% endcomment %}
+
+
+	{% else %}
+
+		</div>
+	{% endif %}
+
+
+
+
+	{% endfor %}
+	</div>
+
+
+
+
+
+{% endblock content %}
