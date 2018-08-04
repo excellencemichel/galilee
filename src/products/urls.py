@@ -11,6 +11,7 @@ from .views import (
 			ProductFeaturedDetailView,
 			ProductDetailSlugView,
 			UserProductHistoryView,
+			ProductDownloadView,
 
 
 			)
@@ -40,9 +41,12 @@ urlpatterns = [
 			re_path(r'^featured/(?P<pk>\d+)/$', ProductFeaturedDetailView.as_view(), name="product_detail_featured_class"),
 			path("featured", ProductFeaturedListView.as_view(), name="product_featured_list_class"),
 
-			re_path(r'^(?P<slug>[\w-]+)/detai/$', ProductDetailSlugView.as_view(), name="detail"),
-			re_path(r'^detail/(?P<pk>\d+)/$', ProductDetailView.as_view(), name="product_detail_class"),
+			re_path(r'^(?P<slug>[\w-]+)-(?P<pk>\d+)/detail/$', ProductDetailView.as_view(), name="detail"),
+			# re_path(r'^(?P<slug>[\w-]+)/detail/$', ProductDetailSlugView.as_view(), name="product_detail_class"), #product_detail_class
 			path('history/products', UserProductHistoryView.as_view(), name="user_product_history"),
+			re_path(r'^(?P<slug>[\w-]+)/(?P<pk>\d+)/$', ProductDownloadView.as_view(), name="download"),
+
+
 
 
 

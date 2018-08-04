@@ -1,11 +1,20 @@
 import datetime
 import os
+from decouple import config
+
+
 
 AWS_GROUP_NAME = "sylimarket_Groupe"
 AWS_USERNAME = "ecommerce_user"
+if os.environ.get("ENV") =="PRODUCTION":
+	AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+	AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY" )
+else:
+	AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID")
+	AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY" )
 
-AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY" )
+
+
 
 
 AWS_FILE_EXPIRE = 200
@@ -32,3 +41,11 @@ AWS_HEADERS = {
 }
 
 
+
+
+
+
+PROTECTED_DIR_NAME = "protected"
+PROTECTED_MEDIA_URL = '//%s.s3.amazonaws.com/%s/' %( AWS_STORAGE_BUCKET_NAME, PROTECTED_DIR_NAME)
+
+AWS_DOWNLOAD_EXPIRE = 5000 #(0ptional, in milliseconds)

@@ -4,11 +4,9 @@
 
 	
 	<div class="row">
-		<h1>Une titre</h1>
 		
 {% for object in object_list %}
 		<div class="col">
-			{{ forloop.counter }}
 			{% include "products/snippets/card.html" with instance=object %}
 
 			{% if forloop.counter|divisibleby:3 %}

@@ -16,6 +16,7 @@ from decouple import config
 
 
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -217,6 +218,8 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+PROTECTED_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "protected_root")
+
 
 
 
@@ -252,6 +255,8 @@ SECURE_FRAME_DENY               = False
 
 
 if os.environ.get("ENV") =="PRODUCTION":
+    from ecommerce.aws.conf import *
+
     SECRET_KEY                      = os.environ.get('SECRET_KEY')
 
 
@@ -265,14 +270,6 @@ if os.environ.get("ENV") =="PRODUCTION":
 
 
 
-    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
-    STATICFILES_DIRS = [
-             os.path.join(BASE_DIR, "static_my_proj"),
-                    
-                    ]
-    MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
-
-    from ecommerce.aws.conf import *
 
 
     

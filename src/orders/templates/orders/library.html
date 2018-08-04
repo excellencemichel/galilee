@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+
+<div class="row">
+	<div class="col-12">
+		<h1 class="text-center">Library</h1>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col">
+		<table class="table">
+			<thead>
+				<th>Product</th>
+				<th>Download</th>
+			</thead>
+
+			<tbody>
+				{% for object in object_list %}
+				<tr>
+					<td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+					<td>
+						{% for download in object.get_downloads %}
+						<a href="{{ download.get_dowload_url }}">
+						{{ download.display_name }}</a> <br>
+						{% endfor %}
+					</td>
+
+				</tr>
+
+				{% empty %}
+				<tr>
+					<td colspan="3">
+						<p class="lead">Not orders yet.</p>
+					</td>
+				</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+
+
+
+
+{% endblock content %}

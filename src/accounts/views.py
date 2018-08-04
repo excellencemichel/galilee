@@ -17,15 +17,16 @@ from django.utils.deprecation import RemovedInDjango21Warning
 from django.utils.http import is_safe_url, urlsafe_base64_decode
 from django.utils.decorators import method_decorator
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import  ( 
-					authenticate,
-					login, get_user_model,
-					logout, 
-					update_session_auth_hash,
+                    authenticate,
+                    login, get_user_model,
+                    logout, 
+                    update_session_auth_hash,
 
-					)
+                    )
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -34,7 +35,6 @@ from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
 
-from django.utils.translation import gettext_lazy as _
 
 
 

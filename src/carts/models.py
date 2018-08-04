@@ -71,6 +71,14 @@ class Cart(models.Model):
 	@property
 	def name(self):
 		return self.title
+
+	@property 
+	def is_digital(self):
+		qs = self.products.all()
+		new_qs = qs.filter(is_digital=False)
+		if new_qs.exists():
+			return False
+		return True
 	
 
 

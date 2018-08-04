@@ -1,3 +1,4 @@
+import os
 import random
 import string
 from django.utils.text import slugify
@@ -6,7 +7,8 @@ from django.utils.text import slugify
 
 
 
-
+def get_filename(path): #abc/filename.mp4
+	return os.path.basename(path)
 
 def random_string_generator(size=12, chars = string.ascii_lowercase + string.digits):
 	return "".join(random.choice(chars) for _ in range(size))

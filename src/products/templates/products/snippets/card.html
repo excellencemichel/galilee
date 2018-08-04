@@ -2,18 +2,22 @@
 
 	{% if instance.image %}
 	 <a href="{{ instance.get_absolute_url }}">
- 		 <img class="card-img-top fluid" src="{{ instance.image.url }}" alt="{{ instance.title }} logo">
+ 		 <img class="card-img-top fluid" src="{{ instance.image.url }}" alt="{{ instance.title }} logo" width="70" height="100">
 	</a>
 
   {% endif %}
   <div class="card-body">
     <h4 class="card-title">{{ instance.title }}</h4>
     <p class="card-text">{{ instance.description|truncatewords:12 }}</p>
-    <a href="{{ instance.get_absolute_url }}" class="btn btn-primary"> View </a>
+      <div class="text-center">
+      <a href="{{ instance.get_absolute_url }}" class="btn btn-primary my-2"> View </a>
 
-    {% include 'products/snippets/update_cart.html' with product=instance cart=cart %}
+      {% include 'products/snippets/update_cart.html' with product=instance cart=cart %}
+    </div>
 
-
+    {% comment %}
    <!--  <a href="{% url 'products:detail' instance.slug %}" class="btn btn-warning"> URL shotcut </a> -->
+    {% endcomment %}
+
   </div>
 </div>

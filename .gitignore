@@ -5,3 +5,5 @@ env/
 static_cdn
 
 ecommerce.sublime-workspace
+src/.env
+.env/

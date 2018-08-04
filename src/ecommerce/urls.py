@@ -23,6 +23,7 @@ from django.contrib import admin
 
 from django.views.generic import TemplateView
 
+from django.urls import include, path, re_path
 from .views import  ( 
         home, about_page, 
         contact_page,
@@ -30,8 +31,9 @@ from .views import  (
 
         )
 
+from orders.views import LibraryView
 
-from django.urls import include, path, re_path
+
 
 
 urlpatterns = [
@@ -43,6 +45,9 @@ urlpatterns = [
     path('contact', contact_page, name="contact"),
     path('bootstrap', TemplateView.as_view(template_name="bootstrap/example.html")),
     path('retour', TemplateView.as_view(template_name="bootstrap/retour.html")),
+
+    path('library', LibraryView.as_view(), name="library"),
+
 
 
 

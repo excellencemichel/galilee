@@ -3,6 +3,9 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
+from django.utils.translation import gettext_lazy as _
+
+
 
 from accounts.forms import LoginForm, GuestForm
 from accounts.models import GuestEmail
@@ -21,8 +24,8 @@ from .models import Cart
 
 import stripe
 
-STRIPE_SECRET_KEY = getattr(settings, "STRIPE_SECRET_KEY", "sk_test_wIVcr24eoGW8iVGILTRPqK8y")
-STRIPE_PUB_KEY = getattr(settings, "STRIPE_PUB_KEY","pk_test_LHG1WgMEUSrViTgyA5u5hssf" )
+STRIPE_SECRET_KEY = getattr(settings, "STRIPE_SECRET_KEY")
+STRIPE_PUB_KEY = getattr(settings, "STRIPE_PUB_KEY" )
 stripe.api_key = STRIPE_SECRET_KEY
 
 
@@ -52,7 +55,6 @@ def cart_detail_api_view(request):
 
 def cart_home(request):
 	cart_obj, new_obj = Cart.objects.new_or_get(request)
-
 
 	return render(request, "carts/home.html",  {"cart": cart_obj})
 
@@ -107,7 +109,7 @@ def checkout_home(request):
 	address_form 	= AddressForm()
 	billing_address_id = request.session.get("billing_address_id", None)
 	shipping_address_id	= request.session.get("shipping_address_id", None)
-
+	shipping_address_required = not cart_obj.is_digital 
 	billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
 	address_qs = None
 	has_card = None
@@ -156,6 +158,7 @@ def checkout_home(request):
 		"address_qs": address_qs,
 		"has_card": has_card,
 		"publish_key": STRIPE_PUB_KEY,
+		"shipping_address_required": shipping_address_required,
 
 
 	}
