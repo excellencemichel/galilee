@@ -1,12 +1,19 @@
 from math import fsum
+import datetime
 
 from django.conf import settings
 
 from django.db import models
 from django.db.models.signals import pre_save, post_save
+from django.db.models import Sum, Avg, Count 
 
 from django.urls import reverse
 
+from django.utils import timezone
+
+
+
+#Local import
 from ecommerce.utils import unique_order_id_generator
 
 from billing.models import BillingProfile 
@@ -30,6 +37,75 @@ ORDER_STATUS_CHOICES = (
 
 
 class OrderManagerQuerySet(models.query.QuerySet):
+
+	def recent(self):
+		return self.order_by("-updated", "-timestamp")
+
+
+	def get_sales_breakdown(self):
+		recent = self.recent().not_refunded()
+		recent_data = recent.totals_data()
+		recent_cart_data = recent.cart_data()
+		shipped = recent.not_refunded().by_status(status="shipped")
+		shipped_data = shipped.totals_data()
+		paid = recent.by_status(status="paid")
+		paid_data = paid.totals_data()
+
+		data = {
+			"recent":recent,
+			"recent_data" :recent_data,
+			"recent_cart_data": recent_cart_data,
+			"shipped" : shipped,
+			"shipped_data" : shipped_data,
+			"paid":paid,
+			"paid_data": paid_data
+		}
+		return data
+		
+	def by_weeks_range(self, weeks_ago=7, number_of_weeks=2):
+		if number_of_weeks > weeks_ago:
+			number_of_weeks = weeks_ago
+		days_ago_start = weeks_ago * 7
+		days_ago_end = days_ago_start - (number_of_weeks * 7)
+		# print(days_ago_start, days_ago_end)
+
+		start_date = timezone.now() - datetime.timedelta(days=days_ago_start)
+		end_date = timezone.now() - datetime.timedelta(days=days_ago_end)
+		# print(start_date, end_date)
+		return self.by_range(start_date=start_date, end_date=end_date)
+
+
+
+	def by_range(self, start_date, end_date=None):
+		if end_date is None:
+			return self.filter(updated__gte=start_date)
+		return self.filter(updated__gte=start_date).filter(updated__lt=end_date)
+
+	def by_date(self):
+		now = timezone.now() - datetime.timedelta(days=1)
+		return self.filter(updated__day__gte=now.day)
+
+
+
+	def totals_data(self):
+		return self.aggregate(Sum("total"), Avg("total"))
+
+
+
+	def cart_data(self):
+		return self.aggregate(
+					Sum("cart__products__price"),
+					Avg("cart__products__price"),
+					Count("cart__products")
+			)
+
+
+	def by_status(self, status="shipped"):
+		return self.filter(status=status)
+
+
+	def not_refunded(self):
+		return self.exclude(status="refunded")
 
 	def by_request(self, request):
 		billing_profile, created = BillingProfile.objects.new_or_get(request)
@@ -77,11 +153,11 @@ class Order(models.Model):
 	billing_address		= models.ForeignKey(Address, related_name="billing_address", null=True, blank=True, on_delete=models.CASCADE) 
 	cart 				= models.ForeignKey(Cart, on_delete=models.CASCADE)
 	status  			= models.CharField(max_length=250, default="created", choices=ORDER_STATUS_CHOICES)
-	shipping_total		= models.DecimalField(default=5.999, max_digits=100, decimal_places=3)
+	shipping_total		= models.DecimalField(default=0.000, max_digits=100, decimal_places=3)
 	total				= models.DecimalField(default=0.000, max_digits=100, decimal_places=3)
 	active				= models.BooleanField(default=True)
 
-	update 				= models.DateTimeField(auto_now=True)
+	updated 			= models.DateTimeField(auto_now=True)
 	timestamp 			= models.DateTimeField(auto_now_add=True)
 
 
@@ -89,7 +165,7 @@ class Order(models.Model):
 	objects	= OrderManager()
 
 	class Meta:
-		ordering = ["-timestamp", "-update"]
+		ordering = ["-timestamp", "-updated"]
 
 
 	def get_absolute_url(self):
@@ -260,7 +336,7 @@ class ProductPurshase(models.Model): #Purshase veut dire achat
 	billing_profile 	= models.ForeignKey(BillingProfile,on_delete=models.CASCADE)
 	product 			= models.ForeignKey(Product, on_delete=models.CASCADE)
 	refunded 			= models.BooleanField(default=False)
-	update 				= models.DateTimeField(auto_now=True)
+	updated 				= models.DateTimeField(auto_now=True)
 	timestamp 			= models.DateTimeField(auto_now_add=True)
 
 

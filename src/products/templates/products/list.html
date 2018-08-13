@@ -6,6 +6,7 @@
 	<div class="row">
 		
 {% for object in object_list %}
+		{{ object.types_product }}
 		<div class="col">
 			{% include "products/snippets/card.html" with instance=object %}
 

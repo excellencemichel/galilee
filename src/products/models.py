@@ -32,6 +32,28 @@ def upload_image_path(instance, filename):
 
 	return "products/{new_filename}/{final_filename}".format(new_filename=new_filename, final_filename=final_filename)
 
+
+
+TYPES_PRODUCT = (
+
+		("phone", "Phone"),
+		("tablette", "Tablette"),
+		("computer", "Computer"),
+		("cloths", "Cloths"),
+		("shoe", "Shoe"),
+		("food", "Food"),
+		("fourniture", "Fourniture"),
+		("materiel", "Materiel"),
+		("pants", "Pants"),
+		("electromenager", "Electroménager"),
+
+
+
+
+	)
+
+
+
 class ProductQuerySet(models.query.QuerySet):
 	def active(self):
 		return self.filter(active=True)
@@ -48,6 +70,52 @@ class ProductQuerySet(models.query.QuerySet):
 				 Q(tag__title__icontains=query)
 				)
 		return self.filter(lookups).distinct()
+
+
+	def is_phone(self):
+		return self.filter(types_product="phone")
+
+
+	def is_tablette(self):
+		return self.filter(types_product="tablette")
+
+	def is_cloths(self):
+			return self.filter(types_product="cloths")
+
+
+	def is_pants(self):
+			return self.filter(types_product="pants")
+
+
+	def is_food(self):
+			return self.filter(types_product="food")
+
+
+	def is_fourniture(self):
+			return self.filter(types_product="fourniture")
+
+
+
+
+	def is_materiel(self):
+			return self.filter(types_product="materiel")
+
+
+
+	def is_computer(self):
+			return self.filter(types_product="computer")
+
+
+
+	def is_shoe(self):
+			return self.filter(types_product="shoe")
+
+
+
+	def is_electromenager(self):
+		return self.filter(types_product="electromenager")
+
+
 
 
 
@@ -91,21 +159,69 @@ class ProductManager(models.Manager):
 
 
 
+	def is_phone(self):
+		return self.get_queryset().active().is_phone()
+
+
+	def is_tablette(self):
+		return self.get_queryset().active().is_tablette()
+
+	def is_cloths(self):
+			return self.get_queryset().active().is_cloths()
+
+
+	def is_pants(self):
+			return self.get_queryset().active().is_pants()
+
+
+	def is_food(self):
+			return self.get_queryset().active().is_food()
+
+
+	def is_fourniture(self):
+			return self.get_queryset().active().is_fourniture()
+
+
+
+
+	def is_materiel(self):
+			return self.get_queryset().active().is_materiel()
+
+
+
+	def is_computer(self):
+			return self.get_queryset().active().is_computer()
+
+
+
+	def is_shoe(self):
+			return self.get_queryset().active().is_shoe()
+
+
+
+	def is_electromenager(self):
+		return self.get_queryset().active().is_electromenager()
+
+
+
+
+
 
 
 class Product(models.Model):
 
 
-	title  			= models.CharField(max_length= 250)
-	slug 			= models.SlugField(blank=True, unique=True)
-	description		= models.TextField()
-	price 			= models.DecimalField(decimal_places=3, max_digits=20, default=39.999)
-	image 			= models.ImageField(upload_to=upload_image_path, null=True, blank=False)
+	title  				= models.CharField(max_length= 250)
+	slug 				= models.SlugField(blank=True, unique=True)
+	types_product  		= models.CharField(max_length=250, default="", choices=TYPES_PRODUCT)
+	description			= models.TextField()
+	price 				= models.DecimalField(decimal_places=3, max_digits=20, default=39.999)
+	image 				= models.ImageField(upload_to=upload_image_path, null=True, blank=False)
 
-	featured		= models.BooleanField(default=False)
+	featured			= models.BooleanField(default=False)
 
-	active 			= models.BooleanField(default=True)
-	timestamp		= models.DateTimeField(auto_now_add=True)
+	active 				= models.BooleanField(default=True)
+	timestamp			= models.DateTimeField(auto_now_add=True)
 	is_digital 			= models.BooleanField(default=False)
 
 

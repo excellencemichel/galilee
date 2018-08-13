@@ -36,6 +36,7 @@ from orders.views import LibraryView
 
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -56,7 +57,7 @@ urlpatterns = [
 
 
 
-
+    path('analytics/', include("analytics.urls", namespace="analytics")),
     path('products/', include("products.urls", namespace="products")),
     path('search/', include("search.urls", namespace="search")),
     path('cart/', include("carts.urls", namespace="carts")),
