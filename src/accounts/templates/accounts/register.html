@@ -1,16 +1,87 @@
 {% extends "base.html" %}
 
+	    {% block javascript %}
+	    	<script type="text/javascript">
+					    		
+				//Vérification de la longueur du mot de passe saisi
+				document.getElementById("controleMdpSaisi").addEventListener("input", function(e){
+					var mdp = e.target.value;//Valeur saisie dans le champ mdp
+					var longueurMdp = "faible";
+					var couleurmsg = "red";//Longueur faible=>couleur rouge
+					if(mdp.length>=8){
+						longueurMdp = "Suffisante";
+						couleurmsg="green";//Longueur suffisante=>couleurmsg verte
+					}
+					else if(mdp.length>=4){
+						longueurMdp = "moyenne";
+						couleurmsg = "orange";//Longueur moyenne=>couleurmsg orange
+					}
+
+					var aideMdpElt = document.getElementById("aideMdp");
+					aideMdp.textContent="Longueur : " + longueurMdp; //Texte de l'aide
+					aideMdp.style.color = couleurmsg;//Couleur du texte de l'aide
+				});
+	    	</script>
+
+		{% endblock javascript %}
+
 
 
 {% block content %}
 	
-		<h3>Register</h3>
-		<form method="POST">{% csrf_token %}
+      <div class="row centered-form">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Please sign up for our market</h3>
+            </div>
+
+            <div class="panel-body">
+                 	 <form method="post" role="form" >
+	                    {% csrf_token %}
+
+	                 	 <div class="row">
+	                      	<div class="col-xs-12 col-sm-12 col-md-6">
+	                      	  <div class="form-group">
+
+									{{ form.email.label }}
+									{{ form.email }}
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-6">
+	                      	  	<div class="form-group">
+
+									{{ form.mobile.label }}
+									{{ form.mobile }}
+								</div>
+							</div>
+						</div>
 
 
-			{{ form }}
-			<button type="submit" class="btn btn-default">Submit</button>
-		</form>
+						 <div class="row">
+	                      	<div class="col-xs-12 col-sm-12 col-md-6">
+		                      	  <div class="form-group">
+
+									{{ form.password1.label }}
+									{{ form.password1 }}
+						    		<span id="aideMdp"></span>
+						    	</div>
+					    	</div>
+
+					    	<div class="col-xs-12 col-sm-12 col-md-6">
+	                      	  	<div class="form-group">
+									{{ form.password2.label }}
+									{{ form.password2 }}
+								</div>
+							</div>
+						</div>
+
+						<button type="submit" class="btn btn-info btn-block">Submit</button>
+					 </form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 {% endblock content %}

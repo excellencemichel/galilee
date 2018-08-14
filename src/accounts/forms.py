@@ -198,8 +198,10 @@ class ReactivateEmailForm(forms.Form):
 class RegisterForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    password1 = forms.CharField(label= _("Password"), widget=forms.PasswordInput)
-    password2 = forms.CharField(label=_('Password confirmation'), widget=forms.PasswordInput)
+    email = forms.EmailField(label = _("Email address"), widget=forms.TextInput(attrs = {"class": "form-control input-xs",}))
+    mobile  = forms.CharField(label=_("Phone number"), required=True, widget=forms.TextInput(attrs = {"class": "form-control input-xs",}))
+    password1 = forms.CharField(label= _("Password"), widget=forms.PasswordInput(attrs = {"class": "form-control input-xs","id": "controleMdpSaisi"}))
+    password2 = forms.CharField(label=_('Password confirmation'), widget=forms.PasswordInput(attrs = {"class": "form-control input-xs"}))
 
     class Meta:
         model = User

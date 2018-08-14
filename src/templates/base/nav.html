@@ -34,19 +34,19 @@
       <div class="collapse navbar-collapse ui__iner" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto ui__iner__ul">
           <li class="nav-item {% if request.path == home_url %} active {% endif %} ui__iner__ul__item">
-            <a class="nav-link ui__iner__ul__link" href="{{ home_url }}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link ui__iner__ul__link" href="{{ home_url }}" style="color: #fff;">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item {% if request.path == contact_url %} active {% endif %} ui__iner__ul__item">
-            <a class="nav-link ui__iner__ul__link" href="{{ contact_url }}">Contact</a>
+            <a class="nav-link ui__iner__ul__link" href="{{ contact_url }}" style="color: #fff;">Contact</a>
           </li>
 
           <li class="nav-item {% if request.path == products_list_url %} active {% endif %} ui__iner__ul__item">
-            <a class="nav-link ui__iner__ul__link" href="{{ products_list_url }}">Products</a>
+            <a class="nav-link ui__iner__ul__link" href="{{ products_list_url }}" style="color: #fff;">Products</a>
           </li>
 
           {% if request.user.is_authenticated %}
            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;">
                 Account
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -73,7 +73,7 @@
           {% endif %}
 
           <li class="nav-item {% if request.path == cart_home_url %} active {% endif %} ui__iner__ul__item">
-            <a class="nav-link ui__iner__ul__link" href="{{ cart_home_url }}"><span class="navbar-cart-count">{{ request.session.cart_items }}</span> <i class="fa fa-cart-plus"></i></i></a>
+            <a class="nav-link ui__iner__ul__link" href="{{ cart_home_url }}"><span class="navbar-cart-count" style="color: #fff;">{{ request.session.cart_items }}</span> <i class="fa fa-cart-plus"></i></i></a>
           </li>
 
 
