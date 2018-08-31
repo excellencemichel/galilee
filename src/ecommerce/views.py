@@ -6,6 +6,14 @@ from django.urls import reverse
 
 
 
+#Local import 
+
+from products.models import Product
+from carts.models import Cart
+
+
+
+
 from .forms import (
 
 
@@ -17,15 +25,26 @@ from .forms import (
 
 
 def home(request):
-	print(request.session.get("first_name", "UnKnown"))
+	cart_obj, new_obj = Cart.objects.new_or_get(request)
+	products = Product.objects.all()
+	phones  = products.filter(types_product="phone")
+	electromenagers  = products.filter(types_product="electromenager")
+	electroniques 	 = products.filter(types_product="electronique")
+
+
+
+
 
 	context = {
-		"title" : "Hello world",
-		"content" : "Welcome to the home",
-	}
+		"cart": cart_obj,
+		"products": products,
+		"phones": phones,
+		"electromenagers": electromenagers,
+		"electroniques": electroniques,
 
-	if request.user.is_authenticated:
-		context["premium_content"] = "YEAHHHHHHH"
+		}
+
+	
 
 	return render(request, "home.html", context)
 

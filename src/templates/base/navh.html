@@ -1,0 +1,251 @@
+{% load static %}
+
+
+{% block base_head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/navh.css' %}">
+
+{% endblock base_head %}
+
+
+{% url 'home' as home_url %}
+
+{% url "products:list" as products_list_url %}
+
+{% url "contact" as contact_url %}
+
+{% url "accounts:login" as login_url %}
+{% url "accounts:logout" as logout_url %}
+{% url "accounts:register" as register_url %}
+{% url "accounts:home" as account_home_url %}
+
+
+{% url "carts:home" as cart_home_url %}
+
+
+
+
+<header class="ui">
+	<div class="ui__1">
+		<div class="ui__1__lg_sh">
+			<div class="ui__1__logo">
+				<a href="{{ home_url }}">
+					<div class="ui__1__logo__img">
+						 <img src="{% static 'img/logo/png/001-elephant.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+						
+					</div>
+					<div class="ui__1__logo__text">
+	      				{% if brand_name %} {{ brand_name }} {% else %} CFE eCommerce {% endif %}
+						
+					</div>
+				</a>
+				
+			</div>
+			<div class="ui__1__search">
+	        	{% include "search/snippets/search_form.html" %}
+			</div>
+		</div>
+		<div class="ui__1__ct_ac_pt">
+
+			<div class="ui__1__cart">
+				<a href="{{ cart_home_url }}">
+					<div class="ui__1__cart__container">
+						<div class="ui__1__cart__container__icon">
+							<img src="{% static 'img/logo/svg/cart.svg' %}">
+							
+						</div>
+						<div class="ui__1__cart__container__count">
+							
+							 <span class="navbar-cart-count" style="color: #fff;">{% if request.session.cart_items %}{{ request.session.cart_items }} {% else %} $ 0 {% endif %}</span> 
+						</div>
+					</div>
+				</a>
+				
+			</div>
+			<div class="ui__1__account">
+				<ul class="ui__1__account__list">
+					{% if request.user.is_authenticated %}
+					<li class="ui__1__account__list__item ui__1__account__list__item__login">
+						<a href="{{ account_home_url }}">Gestion</a>
+					</li>
+					<li class="ui__1__account__list__item ui__1__account__list__item__login">
+						<a href="{{ logout_url }}">Logout</a>
+					</li>
+
+					{% else %}
+					<li class="ui__1__account__list__item">
+						<a href="{{ login_url }}">Login</a>
+					</li>
+					<li class="ui__1__account__list__item">&</li>
+					<li class="ui__1__account__list__item">
+						<a href="{{ register_url">Register</a>
+					</li>
+					{% endif %}
+				</ul>
+				
+			</div>
+
+			<div class="ui__1__products">
+				<a href="{{ products_list_url }}">All products</a>
+			</div>
+		</div>
+		
+	</div>
+	<div class="ui__2">
+		<div class="ui__2__inner">
+				<div class="ui__2__menu">
+					<ul class="ui__2__menu__list">
+						<li class="ui__2__menu__item has__child">
+
+							<span>Electronique</span>
+							<svg width="4.7" height="8" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="ui__menu__item_svg">
+								<path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="ui__menu__item_svg__path"></path>
+							</svg>
+							<div class="ui__menu__dropdown">
+								<ul>
+									<li class="ui__menu__dropdown__item"><a href="#">Présentation</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Programme</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Mot de la directrice</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Equipe pédagogique</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Partenaires</a></li>
+								</ul>
+							</div>
+
+						</li>
+						<li class="ui__2__menu__item has__child">
+							<span>Télévision & Application</span>
+							<svg width="4.7" height="8" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="ui__menu__item_svg">
+								<path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="ui__menu__item_svg__path"></path>
+							</svg>
+							<div class="ui__menu__dropdown">
+								<ul>
+									<li class="ui__menu__dropdown__item"><a href="#">Présentation</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Programme</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Mot de la directrice</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Equipe pédagogique</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Partenaires</a></li>
+								</ul>
+							</div>
+						</li>
+
+						<li class="ui__2__menu__item has__child">
+							<span>Homme</span>
+							<svg width="4.7" height="8" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="ui__menu__item_svg">
+								<path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="ui__menu__item_svg__path"></path>
+							</svg>
+							<div class="ui__menu__dropdown">
+								<ul>
+									<li class="ui__menu__dropdown__item"><a href="#">Présentation</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Programme</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Mot de la directrice</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Equipe pédagogique</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Partenaires</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="ui__2__menu__item has__child">
+							<span>Femme</span>
+							<svg width="4.7" height="8" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="ui__menu__item_svg">
+								<path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="ui__menu__item_svg__path"></path>
+							</svg>
+							<div class="ui__menu__dropdown has__child">
+								<ul>
+									<li class="ui__menu__dropdown__item"><a href="#">Présentation</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Programme</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Mot de la directrice</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Equipe pédagogique</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Partenaires</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="ui__2__menu__item has__child">
+							<span>Bébé & Enfant</span>
+							<svg width="4.7" height="8" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="ui__menu__item_svg">
+								<path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="ui__menu__item_svg__path"></path>
+							</svg>
+							<div class="ui__menu__dropdown">
+								<ul>
+									<li class="ui__menu__dropdown__item"><a href="#">Présentation</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Programme</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Mot de la directrice</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Equipe pédagogique</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Partenaires</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="ui__2__menu__item has__child">
+							<span>Maison & fourniture</span>
+							<svg width="4.7" height="8" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="ui__menu__item_svg">
+								<path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="ui__menu__item_svg__path"></path>
+							</svg>
+							<div class="ui__menu__dropdown">
+								<ul>
+									<li class="ui__menu__dropdown__item"><a href="#">Présentation</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Programme</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Mot de la directrice</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Equipe pédagogique</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Partenaires</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="ui__2__menu__item has__child">
+							<span>Food</span>
+							<svg width="4.7" height="8" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="ui__menu__item_svg">
+								<path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="ui__menu__item_svg__path"></path>
+							</svg>
+							<div class="ui__menu__dropdown">
+								<ul>
+									<li class="ui__menu__dropdown__item"><a href="#">Présentation</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Programme</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Mot de la directrice</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Equipe pédagogique</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Partenaires</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="ui__2__menu__item has__child">
+							<span>Education</span>
+							<svg width="4.7" height="8" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="ui__menu__item_svg">
+								<path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="ui__menu__item_svg__path"></path>
+							</svg>
+							<div class="ui__menu__dropdown">
+								<ul>
+									<li class="ui__menu__dropdown__item"><a href="#">Présentation</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Programme</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Mot de la directrice</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Equipe pédagogique</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Partenaires</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="ui__2__menu__item ">
+							<a href="#" class="ui__menu__link">
+								<span>Sports & Livres & Plus +</span>
+							</a>
+<!-- 							<svg width="4.7" height="8" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="_3ynUUz">
+								<path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="_3Der3h"></path>
+							</svg>
+							<div class="ui__menu__dropdown">
+								<ul>
+									<li class="ui__menu__dropdown__item"><a href="#">Présentation</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Programme</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Mot de la directrice</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Equipe pédagogique</a></li>
+									<li class="ui__menu__dropdown__item"><a href="#">Partenaires</a></li>
+								</ul>
+							</div> -->
+						</li>
+
+					</ul>
+
+					<a href="#" id="menu__shower">
+							<svg width='30' height='20' viewBox='0 0 20 14' fill-rule='evenodd' style="fill: #3B5998"><path d='M0 0h20v2H0zm0 6h20v2H0zm0 6h20v2H0z'></path></svg>
+					</a>
+				</div>
+		</div>
+	</div>
+</header>
+
+
+    {% block javascript %}
+    	<script type="text/javascript" src="{% static 'js/navh.js' %}"></script>
+    {% endblock javascript %}		

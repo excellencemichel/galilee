@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+{% load static %}
+
+
+{% block base_head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home/main.css' %}">
+
+{% endblock base_head %}
 
 
 {% block content %}
@@ -6,26 +13,151 @@
 
 <h2>Product detail</h2>
 
+
+
 	<div class="row">
-		<div class="col-12 col-sm-6 col-md-6 col-lg-6">
-				<h3>{{ object.title }} </h3>
-				<p>Il y a {{ object.timestamp|timesince }}</p>
-				<h4> {{ "some title"|title }}</h4>
-				{{ object.description|linebreaks }}
+		<div class="col col-xs-12 col-sm-6 col-md-4 col-lg-4">
+			<h3> Catégorie : <strong>{{ object.types_product}}</strong></h3>
+			<h3>Marque : <strong>{{ object.product_marque}}</strong></h3>
+			{% if object.product_model %}
+			<h3> Model : <strong>{{ object.product_model}}</strong></h3>
+			{% endif %}
+
+			<img src="{{ object.image.url }}" class="im-fluid">
+			<h3>{{ object.title }} </h3>
+			<p>Il y a {{ object.timestamp|timesince }}</p>
+			<h4> {{ "some title"|title }}</h4>
+			{{ object.description|linebreaks }}
+
+		</div>
+		<div class="col col-xs-12 col-sm-6 col-md-8 col-lg-8">
+			<h3 class="lead text-center">Vue de :</h3>
+			<section class="row">
+				{% for instance in instance_image %}
+					{% if instance.name == "face" and instance.image %}
+						<div class="item">
+							<div class="item__container">
+								<div class="item__container__image">
+									<div class="item__container__image__inner">
 
 
-				<img src="{{ object.image.url }}" class="im-fluid">
+										<img class="col-xs-4 col-sm-3 col-md-2 im-fluid item__container__image__inner__container" src="{{ instance.image.url }}">
+									</div>
+								</div>
+								<div class="item__body">
+									<div class="item__title">
+										<strong>Face</strong>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					{% elif instance.name == "deriere"  and instance.image %}
+						<div class="item">
+							<div class="item__container">
+								<div class="item__container__image">
+									<div class="item__container__image__inner">
+
+
+										<img class="col-xs-4 col-sm-3 col-md-2 im-fluid item__container__image__inner__container" src="{{ instance.image.url }}">
+									</div>
+								</div>
+								<div class="item__body">
+									<div class="item__title">
+										<strong>Le dos</strong>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					{% elif instance.name == "cote1"  and instance.image %}
+						<div class="item">
+							<div class="item__container">
+								<div class="item__container__image">
+									<div class="item__container__image__inner">
+
+
+										<img class="col-xs-4 col-sm-3 col-md-2 im-fluid item__container__image__inner__container" src="{{ instance.image.url }}">
+									</div>
+								</div>
+								<div class="item__body">
+									<div class="item__title">
+										<strong>Côté gauche</strong>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+
+					{% elif instance.name == "cote2"  and instance.image %}
+						<div class="item">
+							<div class="item__container">
+								<div class="item__container__image">
+									<div class="item__container__image__inner">
+
+
+										<img class="col-xs-4 col-sm-3 col-md-2 im-fluid item__container__image__inner__container" src="{{ instance.image.url }}">
+									</div>
+								</div>
+								<div class="item__body">
+									<div class="item__title">
+										<strong>En haut</strong>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+
+					{% elif instance.name == "cote3"  and instance.image %}
+						<div class="item">
+							<div class="item__container">
+								<div class="item__container__image">
+									<div class="item__container__image__inner">
+
+
+										<img class="col-xs-4 col-sm-3 col-md-2 im-fluid item__container__image__inner__container" src="{{ instance.image.url }}">
+									</div>
+								</div>
+								<div class="item__body">
+									<div class="item__title">
+										<strong>Côté droit</strong>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+
+					{% elif instance.name == "cote4"  and instance.image %}
+						<div class="item">
+							<div class="item__container">
+								<div class="item__container__image">
+									<div class="item__container__image__inner">
+
+
+										<img class="col-xs-4 col-sm-3 col-md-2 im-fluid item__container__image__inner__container" src="{{ instance.image.url }}">
+									</div>
+								</div>
+								<div class="item__body">
+									<div class="item__title">
+										<strong>En bas</strong>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			</section>
 
 		</div>
 
-		<div class="col-12 col-sm-6 col-md-6 col-lg-6">
-
-			{% include "products/snippets/update_cart.html" with product=object cart=cart %}
-
-			
-		</div>
 	</div>
-
+<hr>
+		
+		<div class="lead text-center mx-5">
+					
+					{% include "products/snippets/update_cart.html" with product=object cart=cart %}
+		</div>
 
 
 {% endblock content %}

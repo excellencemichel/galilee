@@ -1,23 +1,59 @@
+{% load static %}
+
+
+
+{% comment %}
+
 <div class="card" style="width: 18rem;">
 
-	{% if instance.image %}
-	 <a href="{{ instance.get_absolute_url }}">
- 		 <img class="card-img-top fluid" src="{{ instance.image.url }}" alt="{{ instance.title }} logo" width="70" height="100">
-	</a>
+  {% if instance.image %}
+   <a href="{{ instance.get_absolute_url }}">
+     <img class="card-img-top fluid" src="{{ instance.image.url }}" alt="{{ instance.title }} logo">
+  </a>
 
   {% endif %}
   <div class="card-body">
     <h4 class="card-title">{{ instance.title }}</h4>
     <p class="card-text">{{ instance.description|truncatewords:12 }}</p>
-      <div class="text-center">
-      <a href="{{ instance.get_absolute_url }}" class="btn btn-primary my-2"> View </a>
+    <a href="{{ instance.get_absolute_url }}" class="btn btn-primary"> View </a>
 
-      {% include 'products/snippets/update_cart.html' with product=instance cart=cart %}
-    </div>
+    {% include 'products/snippets/update_cart.html' with product=instance cart=cart %}
 
-    {% comment %}
+
    <!--  <a href="{% url 'products:detail' instance.slug %}" class="btn btn-warning"> URL shotcut </a> -->
-    {% endcomment %}
-
   </div>
 </div>
+
+
+
+
+{% endcomment %}
+
+  <div class="col col-xs-12 col-sm-6 col-md-3 col-lg-2">
+  
+    <div class="cart__container">
+        <div class="cart__container__inner">
+          <a href="{{ instance.get_absolute_url }}">
+            <div class="cart__container__image">
+              <div class="cart__container__image__inner">
+                
+              <img src="{{ instance.image.url }}" class="cart__container__image__inner__container">
+              </div>
+            </div>
+            <div class="cart__container__body">
+              <div class="cart__container__body__title">
+                 {{ instance.title }}
+                 <h6 style="color: green">$ {{ instance.price }} </h6>
+              </div>
+            {% include 'products/snippets/update_cart.html' with product=instance cart=cart %}
+
+              <div class="cart__container__body__title__description">
+                {{ instance.description }}
+              </div>
+            </div>
+          </a>
+      </div>
+    </div>
+  </div>
+
+

@@ -109,7 +109,6 @@ class GuestForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    print("LoginForm est exécuté")
     email = forms.EmailField(label = _("Email address"), widget=forms.TextInput(attrs = {"class": "form-control input-xs",}))
     password = forms.CharField(label = _("Password"), widget=forms.PasswordInput(attrs = {"class": "form-control input-xs",}))
 
@@ -129,6 +128,7 @@ class LoginForm(forms.Form):
 
         qs      = User.objects.filter(email=email)
         if qs.exists():
+            # print(qs)
             #That email is registered, chech active
             not_active = qs.filter(is_active=False)
             if not_active.exists():

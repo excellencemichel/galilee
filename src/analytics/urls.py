@@ -13,7 +13,7 @@ urlpatterns = [
 
 
 
-		path("sales", SalesView.as_view(), name="sales_analytics"),
+		path("sales/", SalesView.as_view(), name="sales_analytics"),
 		path("sales/data", SalesAjaxView.as_view(), name="sales_analytics_data"),
 
 

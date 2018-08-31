@@ -195,8 +195,6 @@ class ChargeManager(models.Manager):
 			source =  card_obj.stripe_id, #obtained with Stripe.js
 			metadata = {"order_id": order_obj.order_id},
 			)
-		print("Voici le c :",c)
-
 		new_charge_obj 	= self.model(
 				billing_profile = billing_profile,
 				stripe_id = c.id,
@@ -218,7 +216,7 @@ class Charge(models.Model):
 	stripe_id 				= models.CharField(max_length=120)
 	paid 					= models.BooleanField(default=False)
 	refunded 				= models.BooleanField(default=False)
-	outcome 					= models.TextField(null=True, blank=True)
+	outcome 				= models.TextField(null=True, blank=True)
 	outcome_type 			= models.CharField(max_length=120, null=True, blank=True)
 	seller_message 			= models.CharField(max_length=120, null=True, blank=True)
 	risk_level	 			= models.CharField(max_length=120, null=True, blank=True)

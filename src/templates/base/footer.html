@@ -1,0 +1,59 @@
+{% load i18n %}
+
+
+<style type="text/css">
+  #footer {
+    margin: 0 ;
+    margin-top: 25px ;
+    margin-bottom: 0;
+    /*background-color: #e9ecef ;*/
+    background-color: #46acb8;
+  }
+
+  .footer__inner {
+    padding: 35px 10% 0;
+  }
+  .footer__items__title {
+    margin-bottom: 10px ;
+    font-size: 1.12rem ;
+    color: #333 ;
+    font-weight: 600 ;
+  }
+  .footer__bottom___item__inner {
+    margin-top: 25px ;
+    padding: 15px ;
+    border-top: 1px solid #ced4da ;
+  }
+  .clearfix::after {
+    content: "" ;
+    display: block ;
+    clear: both ;
+  }
+</style>
+      <!-- FOOTER -->
+      <footer id="footer">
+        <div class="footer__inner ">
+          <div class="footer__informations">
+            <div class="col-12">
+              <div class="footer__iner__items footer__items__title">Nous contacter</div>
+              <div class="footer__iner__items">Facebook</div>
+              <div class="footer__iner__items">Twitter</div>
+              <div class="footer__iner__items">Instagrame</div>
+              <div class="footer__iner__items">Snapchat</div>
+              <div class="footer__iner__items">Appeler</div>
+            </div>
+          </div>
+          <div class="footer__bottom___item__inner">
+            <div class="clearfix">
+              <div class="float-left">&copy;  Company, Inc. &middot; <a href="#">SyliMarket</a> &middot; 
+                {% now "Y" as current_year %}
+                {% blocktrans %}Copyright 2018-{{ current_year }}{% endblocktrans %}
+                <a href="#">Terms</a></div>
+              <a href="#" class="btn btn-secondary btn-sm active float-right" role="button" aria-pressed="true">
+                {% blocktrans %} Back to top {% endblocktrans %}
+              </a>
+              <!-- <p class="float-right"></p> -->
+            </div>
+          </div>
+        </div>
+      </footer>

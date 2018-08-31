@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.views.generic import ListView
 
 from products.models import Product
+from carts.models import Cart 
 # Create your views here.
 
 
@@ -15,6 +16,9 @@ class SearchProductView(ListView):
 	def get_context_data(self, *args, **kwargs):
 		context = super(SearchProductView, self).get_context_data(*args, **kwargs)
 		context["query"] = self.request.GET.get("q")
+		cart_obj, new_obj = Cart.objects.new_or_get(self.request)
+		context["cart"] = cart_obj
+
 		return context
 
 
@@ -26,10 +30,8 @@ class SearchProductView(ListView):
 
 		"""
 		request = self.request
-		print(request.GET)
 		method_dict = request.GET
 		query = method_dict.get("q", None)
-		print(query)
 		if query is not None:
 			return Product.objects.search(query)
 		return Product.objects.featured()

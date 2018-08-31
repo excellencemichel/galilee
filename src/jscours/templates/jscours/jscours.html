@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+	
+
+	<div class="row">
+		<div class="col">
+			<h1 class="leader">
+				Je suis dans JSCours
+			</h1>
+		</div>
+
+		<div class="col">
+			<a href="{% url 'jscours:testajax' %}" class="meteo">Marrakech</a><br>
+
+			<a href="{% url 'jscours:testajax' %}" class="meteo">Rabat</a><br>
+
+			<a href="{% url 'jscours:testajax' %}" class="meteo">Ifrane</a><br>
+
+
+		</div>
+
+
+		<div class="col">
+			<div id="resultat"></div>
+		</div>
+
+
+	</div>
+
+
+	<div class="row">
+		<div class="col">
+			<form action="" id="form" method="POST">
+			    {% csrf_token %}
+				<input type="text" type="search" name="q" id="q" placeholder="Ma recherche">
+				<input type="submit" value="Search">
+			</form>
+		</div>
+
+		<div class="col">
+			<div id="resultat1"></div>
+		</div>
+	</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+    {% block javascript %}
+    	<script type="text/javascript" src="{% static 'jscours/js/app.js' %}"></script>
+    {% endblock javascript %}

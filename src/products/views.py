@@ -21,6 +21,7 @@ from django.contrib import messages
 
 #Local import
 from analytics.mixins import ObjectViewedMixin
+from analytics.signals import object_viewed_signal
 from carts.models import Cart
 from orders.models import ProductPurshase
 from .models import Product, ProductFile
@@ -112,6 +113,7 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
 		context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
 		cart_obj, new_obj = Cart.objects.new_or_get(self.request)
 		context["cart"] = cart_obj
+
 		return context
 
 
@@ -125,6 +127,7 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
 		if instance is None:
 			raise Http404("Product doesn't exist")
 
+		# instance_image = ProductFile.objects.filter(product_id=instance.id)
 		return instance
 
 
@@ -140,18 +143,21 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
 
 
 
-def product_detail_view(request, pk=None, *args, **kwargs):
+def product_detail_view(request, slug=None, pk=None, *args, **kwargs):
 
+	instance = Product.objects.get_by_slug_id(slug, pk)
+	instance_image = ProductFile.objects.filter(product_id = instance.id)
+	
+	cart_obj, new_obj = Cart.objects.new_or_get(request)
 
-	# instance = Product.objects.get(pk=pk)
-	# instance = get_object_or_404(Product, pk=pk)
-
-	instance = Product.objects.get_by_id(pk)
-	cart_obj, new_obj = Cart.objects.new_or_get(self.request)
+	if instance:
+		object_viewed_signal.send(instance.__class__, instance=instance, request=request)
+		
 
 
 	context = {
 	"object" : instance,
+	"instance_image": instance_image,
 	"cart": cart_obj,
 	}
 
@@ -162,33 +168,33 @@ def product_detail_view(request, pk=None, *args, **kwargs):
 
 
 
-class ProductDetailSlugView(ObjectViewedMixin, DetailView):
-	# queryset = Product.objects.all()
-	template_name = "products/detail.html"
+# class ProductDetailSlugView(ObjectViewedMixin, DetailView):
+# 	# queryset = Product.objects.all()
+# 	template_name = "products/detail.html"
 
 
-	def get_object(self, *args, **kwargs):
+# 	def get_object(self, *args, **kwargs):
 
-		request = self.request
-		slug = self.kwargs.get("slug")
+# 		request = self.request
+# 		slug = self.kwargs.get("slug")
 
 
-		# instance = get_object_or_404(Product, slug=slug, active=True)
-		try:
+# 		# instance = get_object_or_404(Product, slug=slug, active=True)
+# 		try:
 
-			instance = Product.objects.get(slug=slug, active=True)
-		except Product.DoesNotExist:
-			raise Http404("Product doesn't exist")
+# 			instance = Product.objects.get(slug=slug, active=True)
+# 		except Product.DoesNotExist:
+# 			raise Http404("Product doesn't exist")
 
-		except Product.MultipleObjectsReturned:
-			qs = Product.objects.filter(slug=slug, active=True)
-			instance = qs.first()
+# 		except Product.MultipleObjectsReturned:
+# 			qs = Product.objects.filter(slug=slug, active=True)
+# 			instance = qs.first()
 
-		except:
-			raise Http404("Uhhhhh")
+# 		except:
+# 			raise Http404("Uhhhhh")
 
-		# object_viewed_signal.send(instance.__class__, instance=instance, request=request)
-		return instance
+# 		# object_viewed_signal.send(instance.__class__, instance=instance, request=request)
+# 		return instance
 
 
 class ProductDownloadView(View):

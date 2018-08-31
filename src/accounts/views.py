@@ -201,14 +201,12 @@ class GuestRegisterView(NextUrlMixin, RequestFormAttachMixin, CreateView):
 
 
 class LoginView(NextUrlMixin, RequestFormAttachMixin, FormView):
-    print("LoginForm aussi est exécuté")
     form_class = LoginForm
     success_url = "/"
     template_name = "accounts/login.html"
 
     def form_valid(self, form):
         next_path = self.get_next_url()
-        print("Cette parti a ete executée form_valid")
         return redirect(next_path)     
 
 

@@ -16,7 +16,7 @@
 	    </head>
 	  	<body>
 
-	  		{% include "base/nav.html" with brand_name="eCommerce"  %}
+	  		{% include "base/navh.html" with brand_name="SyliMarket"  %}
 
 	  		<div class="container">
 	  			{% if messages %}
@@ -30,9 +30,16 @@
 	  				</div>
 
 	  			{% endif %}
+	  		</div>
 
+	  		{% block carousel %}{% endblock carousel %}
+	  		<div class="container">
 	  		{% block content %}{% endblock content %}
 	  		</div>
+
+	  		{% block footer %}
+	  			{% include "base/footer.html" %}
+	  		{% endblock footer %}
 
 		    {% include "base/js.html"  %}
 

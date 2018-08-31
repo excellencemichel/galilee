@@ -1,0 +1,35 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ <html>
+     <head>
+         <title>SyliMarket</title>
+        
+     </head>
+     <body>
+
+     	<div>
+     		<div>
+     			<h3>Information sur votre achat que vous venez d'effectuer sur SyliMarket</h3>
+
+     				<p>
+     					Cart Items : {% for product in  models_instance.cart.products.all %} {{ product }} {% if not forloop.last %}, {% endif %} {% endfor %}
+     				</p>
+
+
+
+     				<p>Shipping address : {{ models_instance.shipping_address.get_address }}</p>
+					<p>Billing address : {{ models_instance.billing_address.get_address }}</p>
+
+					<p>Payment Method: {{ billing_profile.default_card  }} </p>
+
+
+					<p>Cart Total : {{ models_instance.cart.total }}</p>
+					<p>Shippind Total: {{ models_instance.shipping_total }}</p>
+
+					<p>Order Total: {{ models_instance.total }}</p>
+
+					<p>Achat identifié par : <strong>{{ models_instance.order_id }}</strong></p>
+     		</div>
+     	</div>
+
+
+     </body>

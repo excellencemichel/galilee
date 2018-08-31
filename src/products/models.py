@@ -37,6 +37,8 @@ def upload_image_path(instance, filename):
 TYPES_PRODUCT = (
 
 		("phone", "Phone"),
+		("electronique", "Electronique"),
+		("luxe", "Luxe"),
 		("tablette", "Tablette"),
 		("computer", "Computer"),
 		("cloths", "Cloths"),
@@ -213,9 +215,12 @@ class Product(models.Model):
 
 	title  				= models.CharField(max_length= 250)
 	slug 				= models.SlugField(blank=True, unique=True)
-	types_product  		= models.CharField(max_length=250, default="", choices=TYPES_PRODUCT)
+	pseudo_name 		= models.CharField(max_length=250)
+	product_marque      = models.CharField(max_length=250)
+	product_model		= models.CharField(max_length=250, null=True, blank=True)
+	types_product  		= models.CharField(max_length=250, choices=TYPES_PRODUCT)
 	description			= models.TextField()
-	price 				= models.DecimalField(decimal_places=3, max_digits=20, default=39.999)
+	price 				= models.DecimalField(decimal_places=2, max_digits=20, default=39.99)
 	image 				= models.ImageField(upload_to=upload_image_path, null=True, blank=False)
 
 	featured			= models.BooleanField(default=False)
@@ -272,18 +277,18 @@ def upload_product_file_loc(instance, filename):
 
 	if not slug:
 		slug = unique_slug_generator(instance.product)
-	location = "product/{slug}/{id}/".format(slug=slug, id=id_)
+	location = "product_media/{slug}/{id}/".format(slug=slug, id=id_)
 
 
 	return location + filename #path/to/file/filename.mp4
 
+stockage = FileSystemStorage(location=settings.PROTECTED_ROOT)
 
 class ProductFile(models.Model):
 	product 		= models.ForeignKey(Product, on_delete=models.CASCADE)
 	name 			= models.CharField(max_length=120, null=True, blank=True)
-	file 			= models.FileField(
+	image 			= models.ImageField(
 					upload_to=upload_product_file_loc,
-					storage=FileSystemStorage(location=settings.PROTECTED_ROOT)#ProtectedS3Storage(),
 					)
 
 
@@ -293,11 +298,11 @@ class ProductFile(models.Model):
 
 
 	def __str__(self):
-		return str(self.file.name)
+		return str(self.image.name)
 
 	@property
 	def display_name(self):
-		og_name = get_filename(self.file.name)
+		og_name = get_filename(self.image.name)
 		if self.name:
 			return self.name
 		return og_name

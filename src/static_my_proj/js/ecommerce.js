@@ -127,7 +127,7 @@ $(document).ready(function(){
 
 	function getOwnedProduct(productId, submitSpan){
 		var actionEndpoint = "/orders/endpoint/verify/ownership"
-		var httpMethod		= "GET"
+		var httpMethod = "GET"
 		var data = {
 			product_id: productId
 		}
@@ -187,9 +187,9 @@ $(document).ready(function(){
 			success: function(data){
 			var submitSpan = thisForm.find(".submit-span")
 			if (data.added){
-				submitSpan.html('<div class="btn-group"><a class="btn btn-link" href="/cart/">In cart </a><button type="submit" class="btn btn-link">Remove ?</button></div>')
+				submitSpan.html('<div class="btn-group"><a class="btn btn-link" href="/cart/"><span><i class="fa fa-check"></i></span></a><button type="submit" class="btn btn-link"><span><i class="fa fa-times"></i></span></button></div>')
 			} else {
-				submitSpan.html('<button type="submit" class="btn btn-success">Add to cart</button>')
+				submitSpan.html('<button type="submit" class="btn btn-success"><span><i class="fa fa-plus-circle"></i></button>')
 			}
 
 			var navbarCount = $(".navbar-cart-count")
@@ -250,7 +250,8 @@ $(document).ready(function(){
 					newCartItemRemove.css("display", "block")
 					// newCartItemRemove.removeClass("hidden-class")
 
-					newCartItemRemove.find(".cart-item-product-id").val(value.id);				cartBody.prepend("<tr><th scope=\"row\">" + i + "</th><td><a href='" + value.url + "'>" + value.name + "</a>" + newCartItemRemove.html() + "</td><td>" + value.price + "</td></tr>")
+					newCartItemRemove.find(".cart-item-product-id").val(value.id);				
+					cartBody.prepend("<tr><th scope=\"row\">" + i + "</th><td><a href='" + value.url + "'>" + value.name + "</a>" + newCartItemRemove.html() + "</td><td>" + value.price + "</td></tr>")
 					i --
 				})
 				cartBody.find(".cart-subtotal").text(data.subtotal)

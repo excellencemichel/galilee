@@ -14,7 +14,7 @@ class ProductFileInline(admin.TabularInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-	list_display = ["__str__", "slug", "is_digital"]
+	list_display = ["__str__", "slug", "pseudo_name", "product_marque", "product_model", "types_product"]
 	list_filter = ('types_product',)
 	prepopulated_fields = {"slug": ("title",),}
 	inlines = [ProductFileInline]

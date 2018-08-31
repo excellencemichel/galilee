@@ -1,0 +1,75 @@
+{% load static %}
+
+
+
+{% block base_head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home/onglet.css' %}">
+
+{% endblock base_head %}
+
+<div class="row">
+	<div class="col">
+		<ul class="tabs">
+			<li class="active"><a href="#populaire">Populaire</a></li>
+			<li><a href="#mode">Mode</a></li>
+			<li><a href="#electronique">Electronique</a></li>
+			<li><a href="#menage">Ménage</a></li>
+
+
+		</ul>
+		<div class="tabs-content">
+
+			<div class="tab-content active" id="populaire">
+				<img src="{% static 'img/marque/apple.jpg' %}">
+				<img src="{% static 'img/marque/samsung.jpg' %}">
+				<img src="{% static 'img/marque/oppo.jpg' %}">
+				<img src="{% static 'img/marque/whirlpool.jpg' %}">
+				<img src="{% static 'img/marque/loreal.jpg' %}">
+				<img src="{% static 'img/marque/adidas.jpg' %}">
+				<img src="{% static 'img/marque/lg.png' %}">
+				<img src="{% static 'img/marque/tommy-hilfiger.jpg' %}">
+				<img src="{% static 'img/marque/nike.jpg' %}">
+
+
+
+			</div>
+
+			<div class="tab-content" id="mode">
+				<img src="{% static 'img/marque/adidas.jpg' %}">
+				<img src="{% static 'img/marque/tommy-hilfiger.jpg' %}">
+				<img src="{% static 'img/marque/nike.jpg' %}">
+				<img src="{% static 'img/marque/lg.png' %}">
+				<img src="{% static 'img/marque/loreal.jpg' %}">
+				<img src="{% static 'img/marque/tefal.jpg' %}">
+			</div>
+
+			<div class="tab-content" id="electronique">
+				<img src="{% static 'img/marque/apple.jpg' %}">
+				<img src="{% static 'img/marque/samsung.jpg' %}">
+				<img src="{% static 'img/marque/oppo.jpg' %}">
+				<img src="{% static 'img/marque/itel.jpg' %}">
+				<img src="{% static 'img/marque/sony.jpg' %}">
+				<img src="{% static 'img/marque/xiaomi.jpg' %}">
+				<img src="{% static 'img/marque/zte.jpg' %}">
+				<img src="{% static 'img/marque/stg.jpg' %}">
+				<img src="{% static 'img/marque/accent.jpg' %}">
+
+			</div>
+
+
+			<div class="tab-content" id="menage">
+				<img src="{% static 'img/marque/samsung.jpg' %}">
+				<img src="{% static 'img/marque/moulinex.jpg' %}">
+				<img src="{% static 'img/marque/whirlpool.jpg' %}">
+				<img src="{% static 'img/marque/lg.png' %}">
+				<img src="{% static 'img/marque/taurus.jpg' %}">
+				<img src="{% static 'img/marque/pampers.jpg' %}">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+	{% block javascript %}
+	<script type="text/javascript" src="{% static 'js/home/onglet.js' %}" async></script>
+{% endblock javascript %}

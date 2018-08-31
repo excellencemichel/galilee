@@ -19,7 +19,7 @@ from django.db.models import Avg, Count, Sum
 from orders.models import Order 
 # Create your views here.
 
-# @method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name='dispatch')
 class SalesAjaxView(View):
 	template_name = "analytics/sales.html"
 

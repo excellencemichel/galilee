@@ -1,4 +1,13 @@
+from io import BytesIO
+from email.mime.base import MIMEBase
+from email import encoders
+from time import strftime
+
+
 from django.conf import settings
+
+from django.core.mail import EmailMultiAlternatives, EmailMessage
+
 
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -6,6 +15,8 @@ from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 
 
+#Local import
+from ecommerce.utils import render_to_pdf
 
 from accounts.forms import LoginForm, GuestForm
 from accounts.models import GuestEmail
@@ -139,6 +150,52 @@ def checkout_home(request):
 			did_charge,charge_msg = billing_profile.charge(order_obj)
 			order_obj.mark_paid()
 			if did_charge:
+
+				to_email = ["michel37124077@gmail.com",]
+				if request.user.is_authenticated:
+
+					to_email.append(request.user.email)
+
+				elif guest_form.is_valid():
+					guest_address_data = guest_form.cleaned_data
+					guest_address_email = guest_address_data.get("email")
+
+					to_email.append(guest_address_email)
+
+				from_email = settings.EMAIL_HOST_USER
+
+				context_dict = {"models_instance": order_obj}
+				context_dict["billing_profile"] = billing_profile
+				order_pdf = render_to_pdf("carts/order_pdf.html", context_dict)
+				format_filename = """{jour}_{mois}_{annee}_{heure}_{minute}_{seconde}""".format(seconde=strftime("%S"), minute=strftime("%M"), heure=strftime("%H"), mois= strftime("%m"), annee=strftime("%Y"), jour=strftime("%d")) 
+				order_obj.order_pdf.save(format_filename, BytesIO(order_pdf.content))
+
+				subject = """SyliMarket, M ou Mme voici votre reçu de payement que vous venez d'effectuer chez nous"""
+
+				with open(settings.BASE_DIR + "/carts/templates/carts/order_email_message.txt") as f:
+					order_email_message = f.read()
+
+
+
+				order_email_pdf = EmailMessage(
+
+					subject = subject,
+					body= order_email_message,
+					from_email= from_email,
+					to=to_email,
+					)
+
+
+				instance_attach = MIMEBase('application', "octet-stream")
+				instance_attach.set_payload(order_obj.order_pdf.read())
+
+				encoders.encode_base64(instance_attach)
+				instance_attach.add_header("Content-Disposition", "attachment", filename="SM_{format_filename}.pdf".format(format_filename=format_filename))
+				order_email_pdf.attach(instance_attach)
+
+				order_email_pdf.send()
+
+
 				request.session["cart_items"] = 0
 				del request.session["cart_id"]
 				if not billing_profile.user:

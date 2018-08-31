@@ -1,11 +1,19 @@
+from io import BytesIO
 import os
 import datetime 
 import random
 import string
 
+
+from xhtml2pdf import pisa
+
 from django.utils.text import slugify
 
 from django.utils import timezone
+
+
+from django.http import HttpResponse
+from django.template.loader import get_template
 
 
 
@@ -128,7 +136,21 @@ get_month_data_range(months_ago=5, include_this_month=True)
 date_data = get_month_data_range(months_ago=24, include_this_month=True)
 month_labels = ["%s - %s" %(x['month'], x['year']) for x in date_data]
 json_ready_month_starts = [x['start_json'] for x in date_data]
-print(month_labels)
-print(json_ready_month_starts)
 large_date_data = get_month_data_range(months_ago=324, include_this_month=True)
-print(large_date_data)
+
+
+
+
+
+
+
+
+def render_to_pdf(template_src, context_dict={} ):
+    template = get_template(template_src)
+    html = template.render(context_dict)
+
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type="application/pdf")
+    return None
