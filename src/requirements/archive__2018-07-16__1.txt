@@ -3,7 +3,7 @@ cfe==0.0.15
 chardet==3.0.4
 dj-database-url==0.5.0
 django-crispy-forms==1.7.2
-Django==1.11.4
+Django==1.11.23
 gunicorn==19.9.0
 idna==2.7
 Pillow==5.2.0
